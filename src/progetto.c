@@ -22,7 +22,7 @@ int **load_matrix(FILE *filein, int rows, int col)
     /*inizializzo la matrice con calloc in maniera da pulire le memeorie*/
     matrix = (int **)calloc(rows, sizeof(*matrix));
     assert(matrix != NULL);
-    printf("%d ", matrix[i][j]);
+   
 
     for (i = 0; i < rows; i++)
     {
