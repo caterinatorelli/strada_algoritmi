@@ -237,7 +237,7 @@ void graph_add_edge(Graph *g, int src, int dst, int weight)
         new_edge->dst = dst;
         new_edge->weight = weight;
         new_edge->next = graph_adj(g, src);
-        g->edges[src] = new_edge; /*aggiorno la lista di adiacenza*/
+        g->edges[src] = new_edge; 
         g->out_deg[src]++;
         g->in_deg[dst]++;
     }
@@ -357,8 +357,6 @@ static int parent(const MinHeap *h, int i)
     return (i + 1) / 2 - 1;
 }
 
-/* Restituisce l'indice del figlio sinistro del nodo `i`. Ritorna un
-   indice non valido se `i` non ha figlio sinistro. */
 static int lchild(const MinHeap *h, int i)
 {
     assert(valid(h, i));
@@ -652,7 +650,7 @@ int main(int argc, char const *argv[])
             printf("%d %d\n", matrix_i(path[i], m), matrix_j(path[i], m));
         }
         printf("-1 -1\n");
-        printf("%ld\n", (long int)d[target]);
+        printf("%ld\n", (long int)d[target]+Ccell);
 
         free(path);
     }
