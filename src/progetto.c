@@ -581,6 +581,9 @@ int main(int argc, char const *argv[])
     Direction **costi;
     FILE *filein = stdin;
     Graph *g;
+    int target;
+    int *path;
+    int index;
 
     if (argc != 2)
     {
@@ -619,13 +622,45 @@ int main(int argc, char const *argv[])
     assert(prec != NULL);
     s = (const Edge **)malloc(g->n * sizeof(*s));
     assert(s != NULL);
-    graph_print(g);
+    /*graph_print(g);*/
 
     dijkstra(g, 0, d, prec, s);
-    for (i = 0; i < g->n; i++)
+    target = graph_id(n - 1, m - 1, m); 
+    if (d[target] == HUGE_VAL)
     {
-        printf("%d,%d\n", matrix_i(prec[i],m),matrix_j(prec[i],m));
+        printf("No path found\n");
     }
+    else
+    {
+        int path_length = 0;
+        for (i = target; i != NODE_UNDEF; i = prec[i])
+        {
+            path_length++;
+        }
+
+        path = (int *)malloc(path_length * sizeof(int));
+        assert(path != NULL);
+
+        index = path_length - 1;
+        for (i = target; i != NODE_UNDEF; i = prec[i])
+        {
+            path[index--] = i;
+        }
+
+        for (i = 0; i < path_length; i++)
+        {
+            printf("%d %d\n", matrix_i(path[i], m), matrix_j(path[i], m));
+        }
+        printf("-1 -1\n");
+        printf("%ld\n", (long int)d[target]);
+
+        free(path);
+    }
+
+    free(d);
+    free(prec);
+    free(s);
+    
 
     return 0;
 }

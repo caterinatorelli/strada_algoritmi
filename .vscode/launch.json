@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/app.exe",
-            "args": ["input/test0.in"],
+            "args": ["input/test2.in"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
