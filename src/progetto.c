@@ -496,7 +496,19 @@ void minheap_change_prio(MinHeap *h, int key, double newprio)
         move_up(h, j);
     }
 }
-void dijkstra(const Graph *g, int s, double *d, int *p, const Edge **sp)
+/***
+ * modifica dell'algoritmo di Dikstra per calcolare il percorso minimo
+ * dove passiamo il valore di Ccell per calcolare il costo fisso per ogni cella attraversata
+ * @param const Graph *g grafo
+ * @param int s nodo sorgente
+ * @param double *d array dei costi minimi
+ * @param int *p array dei predecessori
+ * @param const Edge **sp array degli archi del percorso minimo
+ * 
+ * @param int Ccell costo fisso per ogni cella attraversata 
+ */
+
+void dijkstra(const Graph *g, int s, double *d, int *p, const Edge **sp, int Ccell)
 {
     int i;
     int v, u;
@@ -508,7 +520,10 @@ void dijkstra(const Graph *g, int s, double *d, int *p, const Edge **sp)
         d[i] = HUGE_VAL;
         p[i] = NODE_UNDEF;
     }
-    d[s] = 0;
+    /*in laboratorio viene dato il codice con d[s]=0
+    ma qui lo modifico per avere l'algoritmo con costo costante
+    come da specifiche della consegna*/
+    d[s] = Ccell;
     p[s] = NODE_UNDEF;
     /*inizializzazione coda di priorità*/
     Q = minheap_create(g->n);
@@ -622,7 +637,7 @@ int main(int argc, char const *argv[])
     assert(s != NULL);
     /*graph_print(g);*/
 
-    dijkstra(g, 0, d, prec, s);
+    dijkstra(g, 0, d, prec, s,Ccell);
     target = graph_id(n - 1, m - 1, m); 
     if (d[target] == HUGE_VAL)
     {
@@ -650,7 +665,7 @@ int main(int argc, char const *argv[])
             printf("%d %d\n", matrix_i(path[i], m), matrix_j(path[i], m));
         }
         printf("-1 -1\n");
-        printf("%ld\n", (long int)d[target]+Ccell);
+        printf("%ld\n", (long int)d[target]);
 
         free(path);
     }
