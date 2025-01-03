@@ -1,3 +1,4 @@
+/*TORELLI CATERINA   0001081565   GRUPPO A   caterina.torelli2@studio.unibo.it*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
